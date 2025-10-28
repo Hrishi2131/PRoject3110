@@ -1,532 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday My Little Star 💙</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday My Little Star 💙</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
 
-    :root {
-      /* Sky Blue Focus (Sky/Opportunities) */
-      --bg-grad-1: #1e3c72;
-      --bg-grad-2: #2a5298;
-      --gift-box-color: #89f7fe; /* Sky Blue */
-      --gift-lid-color: #DDA0DD; /* Soft Lavender */
-      --gift-ribbon-color: #ffffff;
-      --text-color: #ffffff;
-      --accent-color: #89f7fe; /* Sky Blue */
-      --dark-blue: #00264d;
-      --hug-color: #ffb6c1; /* Light Pink for the 'hug' effect */
-    }
+    :root {
+      /* Sky Blue Focus (Sky/Opportunities) */
+      --bg-grad-1: #1e3c72;
+      --bg-grad-2: #2a5298;
+      --gift-box-color: #89f7fe; /* Sky Blue */
+      --gift-lid-color: #DDA0DD; /* Soft Lavender */
+      --gift-ribbon-color: #ffffff;
+      --text-color: #ffffff;
+      --accent-color: #89f7fe; /* Sky Blue */
+      --dark-blue: #00264d;
+      --hug-color: #ffb6c1; /* Light Pink for the 'hug' effect */
+    }
 
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: 'Poppins', sans-serif;
-      color: var(--text-color);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2), #1e3c72);
-      background-size: 200% 200%;
-      animation: gradientShift 15s ease infinite;
-    }
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2), #1e3c72);
+      background-size: 200% 200%;
+      animation: gradientShift 15s ease infinite;
+    }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-    /* --- Intro Screen --- */
-    #intro {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      z-index: 100;
-      transition: opacity 2s ease, visibility 2s;
-    }
+    /* --- Intro Screen --- */
+    #intro {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      z-index: 100;
+      transition: opacity 2s ease, visibility 2s;
+    }
 
-    #intro h1 {
-      font-size: 2.5em; /* Slightly larger */
-      text-align: center;
-      padding: 0 20px;
-      border-right: 3px solid var(--accent-color);
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 3s steps(30) 1 normal both,
-                 blinkCursor 0.75s steps(30) infinite normal;
-      font-family: 'Dancing Script', cursive; /* Elegant font for title */
-    }
-    
-    #intro-prompt {
-      margin-top: 25px; /* Spacing */
-      font-size: 1.3em;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards 3.5s;
-      cursor: pointer;
-      text-shadow: 0 0 10px var(--accent-color); /* Subtle glow */
-    }
+    #intro h1 {
+      font-size: 2.5em; /* Slightly larger */
+      text-align: center;
+      padding: 0 20px;
+      border-right: 3px solid var(--accent-color);
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3s steps(30) 1 normal both,
+                 blinkCursor 0.75s steps(30) infinite normal;
+      font-family: 'Dancing Script', cursive; /* Elegant font for title */
+    }
+    
+    #intro-prompt {
+      margin-top: 25px; /* Spacing */
+      font-size: 1.3em;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 3.5s;
+      cursor: pointer;
+      text-shadow: 0 0 10px var(--accent-color); /* Subtle glow */
+    }
 
-    @keyframes typing { from { width: 0; } to { width: 100%; } }
-    @keyframes blinkCursor { 
-      from { border-right-color: var(--accent-color); } 
-      to { border-right-color: transparent; } 
-    }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blinkCursor { 
+      from { border-right-color: var(--accent-color); } 
+      to { border-right-color: transparent; } 
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-    /* --- Gift Selection Screen --- */
-    .screen {
-      opacity: 0;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      animation: fadeIn 2s ease forwards;
-      z-index: 10;
-    }
-    
-    #gift-screen {
-      display: flex;
-      gap: 40px; /* Increased gap */
-      flex-wrap: wrap;
-      padding: 20px;
-    }
-    
-    .gift-title {
-      width: 100%;
-      text-align: center;
-      font-family: 'Dancing Script', cursive;
-      font-size: 3.5em; /* Larger title */
-      margin-bottom: 30px;
-      color: var(--accent-color);
-    }
+    /* --- Gift Selection Screen --- */
+    .screen {
+      opacity: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 2s ease forwards;
+      z-index: 10;
+    }
+    
+    #gift-screen {
+      display: flex;
+      gap: 40px; /* Increased gap */
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+    
+    .gift-title {
+      width: 100%;
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5em; /* Larger title */
+      margin-bottom: 30px;
+      color: var(--accent-color);
+    }
 
-    /* --- CSS Gift Box --- */
-    .gift { 
-      position: relative; 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      cursor: pointer; 
-      opacity: 1; 
-      transition: opacity 0.5s ease;
-      animation: danceScale 2s ease-in-out infinite alternate; /* NEW: Subtle dance animation */
-    }
-    
-    @keyframes danceScale {
-        0% { transform: scale(1); }
-        100% { transform: scale(1.03); }
-    }
+    /* --- CSS Gift Box --- */
+    .gift { 
+      position: relative; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      cursor: pointer; 
+      opacity: 1; 
+      transition: opacity 0.5s ease;
+      animation: danceScale 2s ease-in-out infinite alternate; /* NEW: Subtle dance animation */
+    }
+    
+    @keyframes danceScale {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.03); }
+    }
 
-    .gift.opened { opacity: 0.6; cursor: default; }
-    .gift-label { 
-      font-size: 1.2em; 
-      font-weight: 600; 
-      margin-top: 15px; 
-      transition: color 0.3s;
-      color: var(--accent-color); /* Labels are sky blue */
-    }
-    
-    /* ... rest of gift box styles (unchanged parts kept brief) ... */
-    .gift:not(.opened):hover .gift-label { color: var(--gift-lid-color); }
-    .gift:not(.opened):hover .lid { transform: translateY(-10px) rotate(-3deg); }
-    .gift-box { width: 150px; height: 120px; background-color: var(--gift-box-color); position: relative; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-    .gift-box::before { content: ''; position: absolute; width: 30px; height: 100%; background-color: var(--gift-ribbon-color); left: 50%; transform: translateX(-50%); }
-    .lid { width: 170px; height: 40px; background-color: var(--gift-lid-color); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); border-radius: 8px; z-index: 1; transition: transform 0.5s ease-out; }
-    .lid::before { content: ''; position: absolute; width: 100%; height: 30px; background-color: var(--gift-ribbon-color); top: 50%; transform: translateY(-50%); }
-    .gift.open .lid { animation: openLid 1s ease-out forwards; }
-    @keyframes openLid {
-      0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-      60% { transform: translateX(-120%) translateY(-100px) rotate(-25deg); }
-      100% { transform: translateX(-150%) translateY(-120px) rotate(-30deg); opacity: 0; }
-    }
-
-
-    /* --- Message Screen --- */
-    .message-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(10, 20, 60, 0.95);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-      padding: 30px;
-      z-index: 20;
-      animation: fadeIn 1s ease;
-    }
-
-    .message-screen h2 {
-      font-size: 3em;
-      margin-bottom: 15px;
-      font-family: 'Dancing Script', cursive;
-      color: var(--hug-color); /* Sweet header color */
-    }
-
-    .message-text {
-      font-size: 1.4em; /* Slightly larger text */
-      max-width: 650px; /* Wider text block */
-      line-height: 1.7em;
-      white-space: pre-wrap;
-      min-height: 100px;
-      font-family: 'Poppins', sans-serif;
-    }
-    
-    /* Text breathing animation */
-    .message-text.breathing-text {
-      animation: textBreathe 2.5s ease-in-out infinite;
-    }
-    
-    @keyframes textBreathe {
-      0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
-      50% { text-shadow: 0 0 12px var(--accent-color); } /* Sky blue glow */
-    }
+    .gift.opened { opacity: 0.6; cursor: default; }
+    .gift-label { 
+      font-size: 1.2em; 
+      font-weight: 600; 
+      margin-top: 15px; 
+      transition: color 0.3s;
+      color: var(--accent-color); /* Labels are sky blue */
+    }
+    
+    /* ... rest of gift box styles (unchanged parts kept brief) ... */
+    .gift:not(.opened):hover .gift-label { color: var(--gift-lid-color); }
+    .gift:not(.opened):hover .lid { transform: translateY(-10px) rotate(-3deg); }
+    .gift-box { width: 150px; height: 120px; background-color: var(--gift-box-color); position: relative; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+    .gift-box::before { content: ''; position: absolute; width: 30px; height: 100%; background-color: var(--gift-ribbon-color); left: 50%; transform: translateX(-50%); }
+    .lid { width: 170px; height: 40px; background-color: var(--gift-lid-color); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); border-radius: 8px; z-index: 1; transition: transform 0.5s ease-out; }
+    .lid::before { content: ''; position: absolute; width: 100%; height: 30px; background-color: var(--gift-ribbon-color); top: 50%; transform: translateY(-50%); }
+    .gift.open .lid { animation: openLid 1s ease-out forwards; }
+    @keyframes openLid {
+      0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+      60% { transform: translateX(-120%) translateY(-100px) rotate(-25deg); }
+      100% { transform: translateX(-150%) translateY(-120px) rotate(-30deg); opacity: 0; }
+    }
 
 
-    button.next-btn {
-      margin-top: 40px;
-      background: var(--hug-color); /* Hug color for buttons */
-      border: none;
-      color: var(--dark-blue);
-      padding: 12px 25px;
-      border-radius: 30px;
-      font-size: 1em;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 15px rgba(255,255,255,0.3);
-      transition: all 0.3s;
-    }
+    /* --- Message Screen --- */
+    .message-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(10, 20, 60, 0.95);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding: 30px;
+      z-index: 20;
+      animation: fadeIn 1s ease;
+    }
 
-    button.next-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(255,255,255,0.5);
-    }
-    
-    /* --- Finale Screen (The LDR Hug) --- */
-    #finale-screen {
-      z-index: 30;
-      background: var(--dark-blue);
-      /* NEW: Simulating the feeling of a hug/cuddle */
-      box-shadow: inset 0 0 100px var(--hug-color), 0 0 50px var(--hug-color);
-      transition: box-shadow 3s ease-out; /* Smooth transition into the hug */
-    }
-    #finale-screen h2 {
-      font-size: 4em;
-      color: var(--hug-color);
-    }
-    #finale-screen .message-text {
-      font-size: 1.7em;
-      font-weight: 600;
-      color: var(--gift-ribbon-color);
-    }
+    .message-screen h2 {
+      font-size: 3em;
+      margin-bottom: 15px;
+      font-family: 'Dancing Script', cursive;
+      color: var(--hug-color); /* Sweet header color */
+    }
 
-    /* --- Background Hearts & Burst (kept for brevity, no change) --- */
-    .heart { position: absolute; bottom: -50px; color: var(--accent-color); animation: floatUp 8s linear infinite; pointer-events: none; }
-    @keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-110vh); opacity: 0; } }
-    .heart-burst { position: fixed; font-size: 20px; color: var(--hug-color); pointer-events: none; z-index: 999; animation: burst 1s ease-out forwards; }
-    @keyframes burst { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
+    .message-text {
+      font-size: 1.4em; /* Slightly larger text */
+      max-width: 650px; /* Wider text block */
+      line-height: 1.7em;
+      white-space: pre-wrap;
+      min-height: 100px;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Text breathing animation */
+    .message-text.breathing-text {
+      animation: textBreathe 2.5s ease-in-out infinite;
+    }
+    
+    @keyframes textBreathe {
+      0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
+      50% { text-shadow: 0 0 12px var(--accent-color); } /* Sky blue glow */
+    }
 
-  </style>
+
+    button.next-btn {
+      margin-top: 40px;
+      background: var(--hug-color); /* Hug color for buttons */
+      border: none;
+      color: var(--dark-blue);
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+      transition: all 0.3s;
+    }
+
+    button.next-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255,255,255,0.5);
+    }
+    
+    /* --- Finale Screen (The LDR Hug) --- */
+    #finale-screen {
+      z-index: 30;
+      background: var(--dark-blue);
+      /* NEW: Simulating the feeling of a hug/cuddle */
+      box-shadow: inset 0 0 100px var(--hug-color), 0 0 50px var(--hug-color);
+      transition: box-shadow 3s ease-out; /* Smooth transition into the hug */
+    }
+    #finale-screen h2 {
+      font-size: 4em;
+      color: var(--hug-color);
+    }
+    #finale-screen .message-text {
+      font-size: 1.7em;
+      font-weight: 600;
+      color: var(--gift-ribbon-color);
+    }
+
+    /* --- Background Hearts & Burst (kept for brevity, no change) --- */
+    .heart { position: absolute; bottom: -50px; color: var(--accent-color); animation: floatUp 8s linear infinite; pointer-events: none; }
+    @keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-110vh); opacity: 0; } }
+    .heart-burst { position: fixed; font-size: 20px; color: var(--hug-color); pointer-events: none; z-index: 999; animation: burst 1s ease-out forwards; }
+    @keyframes burst { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
+
+  </style>
 </head>
 <body>
 
-  <div id="intro">
-    <h1>💙✨ Happy Birthday, My Little Star 👑✨💙</h1>
-    <div id="intro-prompt">Click to Begin the Journey</div>
-  </div>
-  
-  <div id="intro-msg-1" class="message-screen">
-    <h2 id="intro-title-1">From My Sky to Yours... 🌌</h2>
-    <div class="message-text" id="intro-text-1"></div>
-    <button class="next-btn" onclick="nextStep()">Continue 💖</button>
-    </div>
-  
-  <div id="intro-msg-2" class="message-screen">
-    <h2 id="intro-title-2">The Sweetest Melody... 🎶</h2>
-    <div class="message-text" id="intro-text-2"></div>
-    <button class="next-btn" onclick="nextStep()">Next Chapter ✨</button>
-  </div>
+  <div id="intro">
+    <h1>💙✨ Happy Birthday, My Little Star 👑✨💙</h1>
+    <div id="intro-prompt">Click to Begin the Journey</div>
+  </div>
+  
+  <div id="intro-msg-1" class="message-screen">
+    <h2 id="intro-title-1">From My Sky to Yours... 🌌</h2>
+    <div class="message-text" id="intro-text-1"></div>
+    <button class="next-btn" onclick="nextStep()">Continue 💖</button>
+  </div>
+  
+  <div id="intro-msg-2" class="message-screen">
+    <h2 id="intro-title-2">The Sweetest Melody... 🎶</h2>
+    <div class="message-text" id="intro-text-2"></div>
+    <button class="next-btn" onclick="nextStep()">Next Chapter ✨</button>
+  </div>
 
-    <div id="song-dedication-screen" class="message-screen">
-    <h2>A Dedication to My Beautiful Star ✨</h2>
-    <div class="message-text breathing-text" id="intro-text-song"></div>
-    <button class="next-btn" onclick="nextStep()">Continue to the Hug ❤️</button>
-  </div>
-    <div id="intro-transition" class="message-screen">
-    <h2>The Reason I Love You... ❤️</h2>
-    <div class="message-text" id="intro-text-transition"></div>
-    <button class="next-btn" onclick="nextStep()">Open Your Gifts 🎁</button>
-  </div>
+  <div id="intro-transition" class="message-screen">
+    <h2>The Reason I Love You... ❤️</h2>
+    <div class="message-text" id="intro-text-transition"></div>
+    <button class="next-btn" onclick="nextStep()">Open Your Gifts 🎁</button>
+  </div>
 
-  <div id="gift-screen" class="screen">
-    <h1 class="gift-title">Choose Your Treasure...</h1>
-    
-    <div class="gift" id="gift-1" onclick="openGift(1)">
-      <div class="lid"></div>
-      <div class="gift-box"></div>
-      <div class="gift-label">A Precious Memory 💌</div>
-    </div>
-    
-    <div class="gift" id="gift-2" onclick="openGift(2)">
-      <div class="lid"></div>
-      <div class="gift-box"></div>
-      <div class="gift-label">A Forever Wish ✨</div>
-    </div>
-    
-    <div class="gift" id="gift-3" onclick="openGift(3)">
-      <div class="lid"></div>
-      <div class="gift-box"></div>
-      <div class="gift-label">An Unbreakable Promise 💞</div>
-    </div>
-  </div>
+  <div id="gift-screen" class="screen">
+    <h1 class="gift-title">Choose Your Treasure...</h1>
+    
+    <div class="gift" id="gift-1" onclick="openGift(1)">
+      <div class="lid"></div>
+      <div class="gift-box"></div>
+      <div class="gift-label">A Precious Memory 💌</div>
+    </div>
+    
+    <div class="gift" id="gift-2" onclick="openGift(2)">
+      <div class="lid"></div>
+      <div class="gift-box"></div>
+      <div class="gift-label">A Forever Wish ✨</div>
+    </div>
+    
+    <div class="gift" id="gift-3" onclick="openGift(3)">
+      <div class="lid"></div>
+      <div class="gift-box"></div>
+      <div class="gift-label">An Unbreakable Promise 💞</div>
+    </div>
+  </div>
 
-  <div id="message-1" class="message-screen">
-    <h2>A Precious Memory... 💌</h2>
-    <div class="message-text" id="text-1"></div>
-    <button class="next-btn" onclick="closeMessage(1)">Close & Back to Gifts</button>
-  </div>
-  <div id="message-2" class="message-screen">
-    <h2>A Forever Wish... ✨</h2>
-    <div class="message-text" id="text-2"></div>
-    <button class="next-btn" onclick="closeMessage(2)">Close & Back to Gifts</button>
-  </div>
-  <div id="message-3" class="message-screen">
-    <h2>An Unbreakable Promise... 💞</h2>
-    <div class="message-text" id="text-3"></div>
-    <button class="next-btn" onclick="closeMessage(3)">Close & Back to Gifts</button>
-  </div>
-  
-  <div id="finale-screen" class="message-screen screen">
-    <h2>Happy Birthday, My Safe Place. 🫂</h2>
-    <div class="message-text" id="text-finale"></div>
-  </div>
+  <div id="message-1" class="message-screen">
+    <h2>A Precious Memory... 💌</h2>
+    <div class="message-text" id="text-1"></div>
+    <button class="next-btn" onclick="closeMessage(1)">Close & Back to Gifts</button>
+  </div>
+  <div id="message-2" class="message-screen">
+    <h2>A Forever Wish... ✨</h2>
+    <div class="message-text" id="text-2"></div>
+    <button class="next-btn" onclick="closeMessage(2)">Close & Back to Gifts</button>
+  </div>
+  <div id="message-3" class="message-screen">
+    <h2>An Unbreakable Promise... 💞</h2>
+    <div class="message-text" id="text-3"></div>
+    <button class="next-btn" onclick="closeMessage(3)">Close & Back to Gifts</button>
+  </div>
+  
+  <div id="finale-screen" class="message-screen screen">
+    <h2>Happy Birthday, My Safe Place. 🫂</h2>
+    <div class="message-text" id="text-finale"></div>
+  </div>
 
-  <audio id="ambientMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2023/12/28/audio_6509f64860.mp3?filename=soft-romantic-piano-176378.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="ambientMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/12/28/audio_6509f64860.mp3?filename=soft-romantic-piano-176378.mp3" type="audio/mpeg">
+  </audio>
 
-    <audio id="dedicationSong" preload="auto">
-    <source src="https://archive.org/download/MainAgarKahoon/Main%20Agar%20Kahoon.mp3" type="audio/mpeg">
-  </audio>
-    <div id="hearts-container"></div>
+  <div id="hearts-container"></div>
 
-  <script>
-    // --- ✏️ ENHANCED MESSAGES HERE ✏️ ---
-    const messages = {
-      "msg1": "My dearest **Preeti**, this small space is designed in **Sky Blue**, a tribute to your boundless heart and dreams. Though miles separate us, the promise of our connection is as vast and endless as the sky itself. This journey is for you, my self-motivated, beautiful Lady. 💙",
-      "msg2": "You are the *sweetest* girl, my little **baby**.\nYour infectious, **joyful laugh** at your own lame jokes is the music I love most. Your smile, like when you wear a **saree** or **kurti**, makes my heart ache in the best way. For me, you are pure, simple, and the most beautiful thing in the world. **Never change.** 🎶",
-      
-      // ⭐ NEW SONG DEDICATION MESSAGE ⭐
-      "msg3": "Hey beautiful, this song describes you and my feelings for you perfectly. It's a dedication to my **Little Star**, wishing her the happiest birthday! Close your eyes and listen. 🎼",
-      // ⭐ END NEW MESSAGE ⭐
+  <script>
+    // --- ✏️ ENHANCED MESSAGES HERE ✏️ ---
+    const messages = {
+      "msg1": "My dearest **Preeti**, this small space is designed in **Sky Blue**, a tribute to your boundless heart and dreams. Though miles separate us, the promise of our connection is as vast and endless as the sky itself. This journey is for you, my self-motivated, beautiful Lady. 💙",
+      "msg2": "You are the *sweetest* girl, my little **baby**.\nYour infectious, **joyful laugh** at your own lame jokes is the music I love most. Your smile, like when you wear a **saree** or **kurti**, makes my heart ache in the best way. For me, you are pure, simple, and the most beautiful thing in the world. **Never change.** 🎶",
 
-      "transition": "Every time you open one of these, remember that just as you feel safe in my **hug**, I feel whole because of your kind, chubby presence. These gifts are not just words, but a piece of my heart traveling across the distance to you. **It's time for the cuddle...**",
-      "gift1": "My favorite memory? It's every night I got to **cuddle** you—you sleeping like my small, cute **baby** girl. That peace, that safety... that feeling is the **Memory** I carry through this LDR. You make distance feel temporary. 🫂",
-      "gift2": "My **Wish** is that you never feel the need to change for anyone, especially not your beautiful **chubbiness**. You are perfect, adorable, and delicious just the way you are. May all your opportunities under that **sky** come true! ✨",
-      "gift3": "My **Promise** is simple: I will always be your **safe space**. Your **hug** will always be waiting. I promise to support your cooking adventures (and eat all the food!) and to always treat you like the precious little girl you are to me. I love you, baby. 💞",
-      "finale": "This is my **LDR hug**. I’m holding you tight now. Close your eyes, feel the warmth, and know that you are **safe** here. Happy Birthday to the most beautiful, kind, and chubby girl in my world. I love you always, my **Little Star**! 🎂💖"
-    };
-    // ----------------------------------------
+      "transition": "Every time you open one of these, remember that just as you feel safe in my **hug**, I feel whole because of your kind, chubby presence. These gifts are not just words, but a piece of my heart traveling across the distance to you. **It's time for the cuddle...**",
+      "gift1": "My favorite memory? It's every night I got to **cuddle** you—you sleeping like my small, cute **baby** girl. That peace, that safety... that feeling is the **Memory** I carry through this LDR. You make distance feel temporary. 🫂",
+      "gift2": "My **Wish** is that you never feel the need to change for anyone, especially not your beautiful **chubbiness**. You are perfect, adorable, and delicious just the way you are. May all your opportunities under that **sky** come true! ✨",
+      "gift3": "My **Promise** is simple: I will always be your **safe space**. Your **hug** will always be waiting. I promise to support your cooking adventures (and eat all the food!) and to always treat you like the precious little girl you are to me. I love you, baby. 💞",
+      "finale": "This is my **LDR hug**. I’m holding you tight now. Close your eyes, feel the warmth, and know that you are **safe** here. Happy Birthday to the most beautiful, kind, and chubby girl in my world. I love you always, my **Little Star**! 🎂💖"
+    };
+    // ----------------------------------------
 
-    const intro = document.getElementById('intro');
-    const introMsg1 = document.getElementById('intro-msg-1');
-    const introMsg2 = document.getElementById('intro-msg-2');
-    // ⭐ NEW ELEMENT VARIABLE ⭐
-    const songDedicationScreen = document.getElementById('song-dedication-screen');
-    // ⭐ END NEW VARIABLE ⭐
-    const introTransition = document.getElementById('intro-transition');
-    const giftScreen = document.getElementById('gift-screen');
-    const finaleScreen = document.getElementById('finale-screen');
-    const ambient = document.getElementById('ambientMusic');
-    // ⭐ NEW SONG VARIABLE ⭐
-    const dedication = document.getElementById('dedicationSong');
-    // ⭐ END NEW SONG VARIABLE ⭐
-    const heartsContainer = document.getElementById('hearts-container');
-    
-    let currentStep = 0;
-    let giftsOpened = 0;
-    const totalGifts = 3;
+    const intro = document.getElementById('intro');
+    const introMsg1 = document.getElementById('intro-msg-1');
+    const introMsg2 = document.getElementById('intro-msg-2');
+    const introTransition = document.getElementById('intro-transition');
+    const giftScreen = document.getElementById('gift-screen');
+    const finaleScreen = document.getElementById('finale-screen');
+    const ambient = document.getElementById('ambientMusic');
+    const heartsContainer = document.getElementById('hearts-container');
+    
+    let currentStep = 0;
+    let giftsOpened = 0;
+    const totalGifts = 3;
 
-    // --- 1. Start the Experience ---
-    intro.addEventListener('click', () => {
-      intro.style.animation = "fadeOut 2s ease forwards";
-      
-      // Start music with fade-in
-      ambient.volume = 0;
-      ambient.play().catch(e => console.log("Ambient Autoplay blocked."));
-      let v = 0;
-      const fade = setInterval(() => {
-        if (v < 0.3) {
-          v += 0.02;
-          ambient.volume = Math.min(v, 0.3);
-        } else {
-          clearInterval(fade);
-        }
-      }, 200);
-      
-      // Start background hearts (Sky Blue)
-      setInterval(createFloatingHeart, 700);
-      
-      // Start the message sequence
-      setTimeout(startSequence, 1000); 
-    }, { once: true });
-    
-    // --- 2. Handle Message/Poem Flow ---
-    function startSequence() {
-        currentStep = 1;
-        introMsg1.style.display = 'flex';
-        typeWriterEffect('intro-text-1', messages.msg1);
-    }
+    // --- 1. Start the Experience ---
+    intro.addEventListener('click', () => {
+      intro.style.animation = "fadeOut 2s ease forwards";
+      
+      // Start music with fade-in
+      ambient.volume = 0;
+      ambient.play().catch(e => console.log("Autoplay blocked."));
+      let v = 0;
+      const fade = setInterval(() => {
+        if (v < 0.3) {
+          v += 0.02;
+          ambient.volume = Math.min(v, 0.3);
+        } else {
+          clearInterval(fade);
+        }
+      }, 200);
+      
+      // Start background hearts (Sky Blue)
+      setInterval(createFloatingHeart, 700);
+      
+      // Start the message sequence
+      setTimeout(startSequence, 1000); 
+    }, { once: true });
+    
+    // --- 2. Handle Message/Poem Flow ---
+    function startSequence() {
+        currentStep = 1;
+        introMsg1.style.display = 'flex';
+        typeWriterEffect('intro-text-1', messages.msg1);
+    }
 
-    function nextStep() {
-      // Hide the current message screen
-      document.querySelectorAll('.message-screen').forEach(m => {
-        if (m.style.display === 'flex') {
-          m.style.display = 'none';
-          m.querySelector('.message-text').classList.remove('breathing-text');
-        }
-      });
-      
-      currentStep++;
-      
-      if (currentStep === 2) {
-        introMsg2.style.display = 'flex';
-        typeWriterEffect('intro-text-2', messages.msg2);
-      } 
-      // ⭐ NEW STEP 3: DEDICATION SONG ⭐
-      else if (currentStep === 3) {
-        // Pause ambient music and play the dedication song
-        ambient.pause();
-        ambient.currentTime = 0; // Rewind ambient music
-        dedication.volume = 0.6; // Set song volume
-        dedication.play().catch(e => console.log("Dedication autoplay blocked."));
-        
-        songDedicationScreen.style.display = 'flex';
-        typeWriterEffect('intro-text-song', messages.msg3);
-      }
-      // ⭐ UPDATED STEP 4: TRANSITION MESSAGE ⭐
-      else if (currentStep === 4) {
-        // Stop dedication song and resume ambient music
-        dedication.pause();
-        ambient.play();
-        
-        introTransition.style.display = 'flex';
-        typeWriterEffect('intro-text-transition', messages.transition);
-      } 
-      // UPDATED STEP 5: GIFT SCREEN
-      else if (currentStep === 5) {
-        // Show the gift screen and start main flow
-        giftScreen.style.display = "flex";
-        giftScreen.style.opacity = "1";
-      }
-    }
+    function nextStep() {
+      // Hide the current message screen
+      document.querySelectorAll('.message-screen').forEach(m => {
+        if (m.style.display === 'flex') {
+          m.style.display = 'none';
+          m.querySelector('.message-text').classList.remove('breathing-text');
+        }
+      });
+      
+      currentStep++;
+      
+      if (currentStep === 2) {
+        introMsg2.style.display = 'flex';
+        typeWriterEffect('intro-text-2', messages.msg2);
+      } 
+      else if (currentStep === 3) {
+        introTransition.style.display = 'flex';
+        typeWriterEffect('intro-text-transition', messages.transition);
+      } 
+      else if (currentStep === 4) {
+        // Show the gift screen and start main flow
+        giftScreen.style.display = "flex";
+        giftScreen.style.opacity = "1";
+      }
+    }
 
-    // --- 3. Handle Gift Opening ---
-    function openGift(giftNum) {
-      const giftElement = document.getElementById(`gift-${giftNum}`);
-      if (giftElement.classList.contains('opened')) return;
+    // --- 3. Handle Gift Opening ---
+    function openGift(giftNum) {
+      const giftElement = document.getElementById(`gift-${giftNum}`);
+      if (giftElement.classList.contains('opened')) return;
 
-      giftElement.classList.add('opened', 'open');
-      giftsOpened++;
-      createHeartBurst(giftElement);
+      giftElement.classList.add('opened', 'open');
+      giftsOpened++;
+      createHeartBurst(giftElement);
 
-      const messageId = `message-${giftNum}`;
-      const textId = `text-${giftNum}`;
-      
-      setTimeout(() => {
-        document.getElementById(messageId).style.display = "flex";
-        typeWriterEffect(textId, messages[`gift${giftNum}`]);
-      }, 800);
-    }
+      const messageId = `message-${giftNum}`;
+      const textId = `text-${giftNum}`;
+      
+      setTimeout(() => {
+        document.getElementById(messageId).style.display = "flex";
+        typeWriterEffect(textId, messages[`gift${giftNum}`]);
+      }, 800);
+    }
 
-    // --- 4. Handle Closing Gift Message ---
-    function closeMessage(giftNum) {
-      const messageElement = document.getElementById(`message-${giftNum}`);
-      messageElement.style.display = 'none';
-      messageElement.querySelector('.message-text').classList.remove('breathing-text');
-      
-      if (giftsOpened === totalGifts) {
-        showFinale();
-      }
-    }
-    
-    // --- 5. Show Final, Permanent Screen (The Hug) ---
-    function showFinale() {
-      giftScreen.style.animation = "fadeOut 1s ease forwards";
+    // --- 4. Handle Closing Gift Message ---
+    function closeMessage(giftNum) {
+      const messageElement = document.getElementById(`message-${giftNum}`);
+      messageElement.style.display = 'none';
+      messageElement.querySelector('.message-text').classList.remove('breathing-text');
+      
+      if (giftsOpened === totalGifts) {
+        showFinale();
+      }
+    }
+    
+    // --- 5. Show Final, Permanent Screen (The Hug) ---
+    function showFinale() {
+      giftScreen.style.animation = "fadeOut 1s ease forwards";
 
-      finaleScreen.style.display = "flex";
-      finaleScreen.style.opacity = "1";
-      finaleScreen.style.visibility = "visible";
+      finaleScreen.style.display = "flex";
+      finaleScreen.style.opacity = "1";
+      finaleScreen.style.visibility = "visible";
 
-      typeWriterEffect('text-finale', messages.finale);
-      createHeartBurst(finaleScreen, 50);
-    }
+      typeWriterEffect('text-finale', messages.finale);
+      createHeartBurst(finaleScreen, 50);
+    }
 
-    // --- Effects ---
-    function typeWriterEffect(elementId, text) {
-      const textElement = document.getElementById(elementId);
-      textElement.textContent = "";
-      textElement.classList.remove('breathing-text'); 
-      let i = 0;
-      const speed = 50;
-      
-      const interval = setInterval(() => {
-        if (i < text.length) {
-          textElement.textContent += text.charAt(i);
-          i++;
-        } else {
-          clearInterval(interval);
-          textElement.classList.add('breathing-text'); 
-        }
-      }, speed);
-    }
+    // --- Effects ---
+    function typeWriterEffect(elementId, text) {
+      const textElement = document.getElementById(elementId);
+      textElement.textContent = "";
+      textElement.classList.remove('breathing-text'); 
+      let i = 0;
+      const speed = 50;
+      
+      const interval = setInterval(() => {
+        if (i < text.length) {
+          textElement.textContent += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(interval);
+          textElement.classList.add('breathing-text'); 
+        }
+      }, speed);
+    }
 
-    function createFloatingHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.innerHTML = ['💙','💖','✨','💘'][Math.floor(Math.random() * 4)];
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = 15 + Math.random() * 25 + 'px';
-      heart.style.animationDuration = 6 + Math.random() * 4 + 's';
-      heartsContainer.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
-    }
-    
-    function createHeartBurst(element, count = 20) {
-      const rect = element.getBoundingClientRect();
-      const startX = rect.left + rect.width / 2;
-      const startY = rect.top + rect.height / 2;
-      
-      for (let i = 0; i < count; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart-burst');
-        heart.innerHTML = ['💖', '💞', '💙'][i % 3];
-        heart.style.left = startX + 'px';
-        heart.style.top = startY + 'px';
-        
-        const randX = (Math.random() - 0.5) * 300;
-        const randY = (Math.random() - 0.5) * 300;
-        
-        heart.style.setProperty('--x', `${randX}px`);
-        heart.style.setProperty('--y', `${randY}px`);
-        
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 1000);
-      }
-    }
-  </script>
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = ['💙','💖','✨','💘'][Math.floor(Math.random() * 4)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = 15 + Math.random() * 25 + 'px';
+      heart.style.animationDuration = 6 + Math.random() * 4 + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }
+    
+    function createHeartBurst(element, count = 20) {
+      const rect = element.getBoundingClientRect();
+      const startX = rect.left + rect.width / 2;
+      const startY = rect.top + rect.height / 2;
+      
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart-burst');
+        heart.innerHTML = ['💖', '💞', '💙'][i % 3];
+        heart.style.left = startX + 'px';
+        heart.style.top = startY + 'px';
+        
+        const randX = (Math.random() - 0.5) * 300;
+        const randY = (Math.random() - 0.5) * 300;
+        
+        heart.style.setProperty('--x', `${randX}px`);
+        heart.style.setProperty('--y', `${randY}px`);
+        
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+      }
+    }
+  </script>
 </body>
 </html>
