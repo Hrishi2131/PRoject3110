@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Happy Birthday My Little Star 💙</title>
+	<!-- Mandatory Firebase Imports for Canvas Environment (Kept for environment compatibility) -->
+	<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js" type="module"></script>
+	<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js" type="module"></script>
+	<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js" type="module"></script>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+
+		:root {
+			/* Sky Blue Focus (Sky/Opportunities) */
+			--bg-grad-1: #1e3c72;
+			--bg-grad-2: #2a5298;
+			--gift-box-color: #89f7fe; /* Sky Blue */
+			--gift-lid-color: #DDA0DD; /* Soft Lavender */
+			--gift-ribbon-color: #ffffff;
+			--text-color: #ffffff;
+			--accent-color: #89f7fe; /* Sky Blue */
+			--dark-blue: #00264d;
+			--hug-color: #ffb6c1; /* Light Pink for the 'hug' effect */
+			--button-active-color: #FF5733; /* Bright color for active state */
+		}
+
+		body {
+			margin: 0;
+			height: 100vh;
+			font-family: 'Poppins', sans-serif;
+			color: var(--text-color);
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2), #1e3c72);
+			background-size: 200% 200%;
+			animation: gradientShift 15s ease infinite;
+		}
+
+		@keyframes gradientShift {
+			0% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+			100% { background-position: 0% 50%; }
+		}
+
+		/* --- Shared Screen Styles --- */
+		#intro, .message-screen {
+			position: fixed;
+			top: 0; left: 0;
+			width: 100%; height: 100%;
+			display: none; /* Default state */
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			z-index: 100;
+			color: white;
+			text-align: center;
+			padding: 30px;
+		}
+		
+		#intro { 
+			background: linear-gradient(135deg, #1e3c72, #2a5298);
+			z-index: 100;
+			transition: opacity 2s ease, visibility 2s;
+			/* Set to flex initially for the intro screen to show */
+			display: flex; 
+		}
+
+		.message-screen {
+			background: rgba(10, 20, 60, 0.95);
+			animation: fadeIn 1s ease;
+		}
+
+		#intro h1 {
+			font-size: 2.5em;
+			text-align: center;
+			padding: 0 20px;
+			border-right: 3px solid var(--accent-color);
+			white-space: nowrap;
+			overflow: hidden;
+			/* Typing animation duration reduced for faster start */
+			animation: typing 2.5s steps(30) 1 normal both,
+						blinkCursor 0.75s steps(30) infinite normal;
+			font-family: 'Dancing Script', cursive;
+		}
+		
+		#intro-prompt {
+			margin-top: 25px;
+			font-size: 1.3em;
+			opacity: 0;
+			/* Fade in after typing */
+			animation: fadeIn 1s ease forwards 3s; 
+			cursor: pointer;
+			text-shadow: 0 0 10px var(--accent-color);
+		}
+
+		@keyframes typing { from { width: 0; } to { width: 100%; } }
+		@keyframes blinkCursor {	
+			from { border-right-color: var(--accent-color); }	
+			to { border-right-color: transparent; }	
+		}
+		@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+		@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+		
+		.message-screen h2 {
+			font-size: 3em;
+			margin-bottom: 15px;
+			font-family: 'Dancing Script', cursive;
+			color: var(--hug-color);
+		}
+
+		.message-text {
+			font-size: 1.4em;
+			max-width: 650px;
+			line-height: 1.7em;
+			white-space: pre-wrap;
+			min-height: 100px;
+			font-family: 'Poppins', sans-serif;
+		}
+		
+		.message-text.breathing-text {
+			animation: textBreathe 2.5s ease-in-out infinite;
+		}
+		
+		@keyframes textBreathe {
+			0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
+			50% { text-shadow: 0 0 12px var(--accent-color); }
+		}
+
+		button.next-btn {
+			margin-top: 40px;
+			background: var(--hug-color);
+			border: none;
+			color: var(--dark-blue);
+			padding: 12px 25px;
+			border-radius: 30px;
+			font-size: 1em;
+			font-weight: bold;
+			cursor: pointer;
+			box-shadow: 0 0 15px rgba(255,255,255,0.3);
+			transition: all 0.3s;
+		}
+
+		button.next-btn:hover {
+			transform: scale(1.05);
+			box-shadow: 0 0 25px rgba(255,255,255,0.5);
+		}
+		
+		/* --- Music Player Styles --- */
+		.player-container {
+			margin-top: 30px;
+			display: flex;
+			gap: 15px;
+		}
+
+		.player-container button {
+			background: var(--accent-color);
+			color: var(--dark-blue);
+			/* Adjusted width for new text */
+			min-width: 100px; 
+			height: 60px;
+			border-radius: 30px; /* Changed from 50% to 30px for all player buttons */
+			border: 3px solid var(--text-color);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1em;
+			font-weight: 600; /* Added font weight for clarity */
+			transition: all 0.2s;
+			box-shadow: 0 0 10px rgba(137, 247, 254, 0.7);
+			padding: 0 20px;
+		}
+
+		.player-container button:hover {
+			transform: scale(1.05); /* Reduced scale slightly for stability */
+			background: var(--hug-color);
+		}
+		
+		/* Sound Wave Visualization (Custom animation for player) */
+		.sound-wave {
+			width: 150px;
+			height: 50px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin: 40px 0;
+		}
+		.bar {
+			width: 15px;
+			height: 10%;
+			background-color: var(--hug-color);
+			border-radius: 5px;
+			animation: sound 0s ease-in-out infinite alternate;
+			opacity: 0.5;
+		}
+		.bar:nth-child(1) { animation-duration: 0.7s; }
+		.bar:nth-child(2) { animation-duration: 0.9s; }
+		.bar:nth-child(3) { animation-duration: 0.6s; }
+		.bar:nth-child(4) { animation-duration: 0.8s; }
+		.bar.paused { animation-play-state: paused; opacity: 0.3; height: 10%; }
+
+		@keyframes sound {
+			0% { height: 10%; }
+			100% { height: 100%; }
+		}
+		
+		/* --- Gift Box Styles --- */
+		.gift-title { width: 100%; text-align: center; font-family: 'Dancing Script', cursive; font-size: 3.5em; margin-bottom: 30px; color: var(--accent-color); }
+		.gift { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: 1; transition: opacity 0.5s ease; animation: danceScale 2s ease-in-out infinite alternate; }
+		@keyframes danceScale { 0% { transform: scale(1); } 100% { transform: scale(1.03); } }
+		.gift.opened { opacity: 0.6; cursor: default; }
+		.gift-label { font-size: 1.2em; font-weight: 600; margin-top: 15px; transition: color 0.3s; color: var(--accent-color); }
+		.gift-box { width: 150px; height: 120px; background-color: var(--gift-box-color); position: relative; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+		.gift-box::before { content: ''; position: absolute; width: 30px; height: 100%; background-color: var(--gift-ribbon-color); left: 50%; transform: translateX(-50%); }
+		.lid { width: 170px; height: 40px; background-color: var(--gift-lid-color); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); border-radius: 8px; z-index: 1; transition: transform 0.5s ease-out; }
+		.lid::before { content: ''; position: absolute; width: 100%; height: 30px; background-color: var(--gift-ribbon-color); top: 50%; transform: translateY(-50%); }
+		.gift.open .lid { animation: openLid 1s ease-out forwards; }
+		@keyframes openLid {
+			0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+			60% { transform: translateX(-120%) translateY(-100px) rotate(-25deg); }
+			100% { transform: translateX(-150%) translateY(-120px) rotate(-30deg); opacity: 0; }
+		}
+
+		#finale-screen { z-index: 30; background: var(--dark-blue); box-shadow: inset 0 0 100px var(--hug-color), 0 0 50px var(--hug-color); transition: box-shadow 3s ease-out; }
+		#finale-screen h2 { font-size: 4em; color: var(--hug-color); }
+		#finale-screen .message-text { font-size: 1.7em; font-weight: 600; color: var(--gift-ribbon-color); }
+		.heart { position: absolute; bottom: -50px; color: var(--accent-color); animation: floatUp 8s linear infinite; pointer-events: none; }
+		@keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-110vh); opacity: 0; } }
+		.heart-burst { position: fixed; font-size: 20px; color: var(--hug-color); pointer-events: none; z-index: 999; animation: burst 1s ease-out forwards; }
+		@keyframes burst { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
+
+	</style>
+</head>
+<body>
+
+	<div id="intro">
+		<h1>💙✨ Happy Birthday, My Little Star 👑✨💙</h1>
+		<div id="intro-prompt">Click to Begin the Journey</div>
+	</div>
+	
+	<div id="intro-msg-1" class="message-screen">
+		<h2 id="intro-title-1">From My Sky to Yours... 🌌</h2>
+		<div class="message-text" id="intro-text-1"></div>
+		<button class="next-btn" onclick="advanceStep()">Continue 💖</button>
+	</div>
+	
+	<div id="intro-msg-2" class="message-screen">
+		<h2 id="intro-title-2">The Sweetest Melody... 🎶</h2>
+		<div class="message-text" id="intro-text-2"></div>
+		<button class="next-btn" onclick="advanceStep()">Next Chapter ✨</button>
+	</div>
+
+	<!-- --- Step 3: Dedication Message 1 (Ambient Music Plays) --- -->
+	<div id="intro-msg-3" class="message-screen">
+		<h2 id="intro-title-3">A Song for My Heart... 💖</h2>
+		<div class="message-text" id="intro-text-3"></div>
+		<button class="next-btn" onclick="advanceStep()">Listen to Our First Song 🎧</button>
+	</div>
+	
+	<!-- --- Step 4: Song Player 1 (Dedicated Screen) --- -->
+	<div id="song-player-1" class="message-screen">
+		<h2>Song Dedication 1: Our First Walk 🚶‍♀️</h2>
+		<div class="message-text">Press Play to hear the song chosen to capture the shy, hopeful feeling of our beginning.</div>
+		
+		<div class="sound-wave" id="wave-1">
+			<div class="bar paused"></div>
+			<div class="bar paused"></div>
+			<div class="bar paused"></div>
+			<div class="bar paused"></div>
+		</div>
+
+		<div class="player-container">
+			<!-- Updated: Cute Stop -->
+			<button onclick="stopAllMusic()" title="Stop All Music">❌ Stop the Melody</button>
+			<!-- Updated: Cute Play/Pause is managed by JS -->
+			<button id="play-pause-btn-1" onclick="togglePlayPause(1)">❤️ Hear My Heart</button>
+			<!-- Updated: Cute Next -->
+			<button class="next-song-btn" id="next-btn-1" onclick="advanceFromPlayer(1)" disabled>✨ Next Dream</button>
+		</div>
+	</div>
+	
+	<!-- --- Step 5: Dedication Message 2 (Ambient Music Resumes) --- -->
+	<div id="intro-msg-4" class="message-screen">
+		<h2 id="intro-title-4">This One is Just for You... 👑</h2>
+		<div class="message-text" id="intro-text-4"></div>
+		<button class="next-btn" onclick="advanceStep()">Prepare the Music! 🎵</button>
+	</div>
+
+	<!-- --- Step 6: Song Player 2 (Dedicated Screen) --- -->
+	<div id="song-player-2" class="message-screen">
+		<h2>Song Dedication 2: For Your Future ✨</h2>
+		<div class="message-text">This melody is a tribute to every success, goal, and boundless opportunity awaiting you.</div>
+		
+		<div class="sound-wave" id="wave-2">
+			<div class="bar paused"></div>
+			<div class="bar paused"></div>
+			<div class="bar paused"></div>
+			<div class="bar paused"></div>
+		</div>
+
+		<div class="player-container">
+			<!-- Updated: Cute Stop -->
+			<button onclick="stopAllMusic()" title="Stop All Music">❌ Stop the Melody</button>
+			<!-- Updated: Cute Play/Pause is managed by JS -->
+			<button id="play-pause-btn-2" onclick="togglePlayPause(2)">❤️ Hear My Heart</button>
+			<!-- Updated: Cute Next -->
+			<button class="next-song-btn" id="next-btn-2" onclick="advanceFromPlayer(2)" disabled>🫂 Open the Cuddle</button>
+		</div>
+	</div>
+
+	<!-- --- Step 7: Transition Message (Ambient Music Resumes) --- -->
+	<div id="intro-transition" class="message-screen">
+		<h2>The Reason I Love You... ❤️</h2>
+		<div class="message-text" id="intro-text-transition"></div>
+		<button class="next-btn" onclick="advanceStep()">Open Your Gifts 🎁</button>
+	</div>
+	
+	<!-- Step 8: Gift Screen (Ambient Music Plays) -->
+	<div id="gift-screen" class="message-screen">
+		<h1 class="gift-title">Choose Your Treasure...</h1>
+		
+		<div class="gift-grid" style="display: flex; gap: 40px;">
+			<div class="gift" id="gift-1" onclick="openGift(1)">
+				<div class="lid"></div>
+				<div class="gift-box"></div>
+				<div class="gift-label">A Precious Memory 💌</div>
+			</div>
+			
+			<div class="gift" id="gift-2" onclick="openGift(2)">
+				<div class="lid"></div>
+				<div class="gift-box"></div>
+				<div class="gift-label">A Forever Wish ✨</div>
+			</div>
+			
+			<div class="gift" id="gift-3" onclick="openGift(3)">
+				<div class="lid"></div>
+				<div class="gift-box"></div>
+				<div class="gift-label">An Unbreakable Promise 💞</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Gift Message Screens -->
+	<div id="message-1" class="message-screen">
+		<h2>A Precious Memory... 💌</h2>
+		<div class="message-text" id="text-1"></div>
+		<button class="next-btn" onclick="closeMessage(1)">Close & Back to Gifts</button>
+	</div>
+	<div id="message-2" class="message-screen">
+		<h2>A Forever Wish... ✨</h2>
+		<div class="message-text" id="text-2"></div>
+		<button class="next-btn" onclick="closeMessage(2)">Close & Back to Gifts</button>
+	</div>
+	<div id="message-3" class="message-screen">
+		<h2>An Unbreakable Promise... 💞</h2>
+		<div class="message-text" id="text-3"></div>
+		<button class="next-btn" onclick="closeMessage(3)">Close & Back to Gifts</button>
+	</div>
+	
+	<!-- Finale Screen (Ambient Music Plays) -->
+	<div id="finale-screen" class="message-screen screen">
+		<h2>Happy Birthday, My Safe Place.. 🫂</h2>
+		<div class="message-text" id="text-finale"></div>
+	</div>
+
+	<!-- Main Audio Element -->
+	<audio id="mainAudio"></audio>
+	<div id="hearts-container"></div>
+
+	<script>
+		// --- CONFIGURATION (CHECK YOUR URLs HERE!) ---
+		const config = {
+			ambientVolume: 0.3, 
+			dedicatedVolume: 0.8, 
+			ambientMusicUrl: "https://ik.imagekit.io/Hrishikesh2131/Om%20Shanti%20Om%20(Instrumental)%20-%20Om%20Shanti%20Om%20128%20Kbps.mp3?updatedAt=1761649040080", 
+			dedicatedSong1Url: "https://ik.imagekit.io/Hrishikesh2131/Main%20Agar%20Kahoon%20-%20Om%20Shanti%20Om%20320%20Kbps.mp3?updatedAt=1761750399176", 
+			dedicatedSong2Url: "https://www.dl.dropboxusercontent.com/scl/fi/2k789fqqw8o49g8j98z3d/instrumental_romantic.mp3?rlkey=q6321q5p2k87h6a49r30h290f&dl=0", 
+			minListenTimeSeconds: 5
+		};
+		
+		const messages = {
+			"msg1": "My dearest **Preeti**, this small space is designed in **Sky Blue**, a tribute to your boundless heart and dreams. Though miles separate us, the promise of our connection is as vast and endless as the sky itself. This journey is for you, my self-motivated, beautiful Lady. 💙",
+			"msg2": "You are the *sweetest* girl, my little **baby**.\nYour infectious, **joyful laugh** at your own lame jokes is the music I love most. Your smile, like when you wear a **saree** or **kurti**, makes my heart ache in the best way. For me, you are pure, simple, and the most beautiful thing in the world. **Never change.** 🎶",
+			"msg3": "This song is the feeling of our first walk together—shy, hopeful, and the quiet beginning of everything. Close your eyes and remember that moment. **This is for us.**",
+			"msg4": "That first melody was just a warm-up. This second one is a dedication to **your future**. To every success, every goal you crush, and every opportunity under the sky that belongs to you. **I'm so proud of you.**",
+			"transition": "Every time you open one of these, remember that just as you feel safe in my **hug**, I feel whole because of your kind, chubby presence. These gifts are not just words, but a piece of my heart traveling across the distance to you. **It's time for the cuddle...**",
+			"gift1": "My favorite memory? It's every night I got to **cuddle** you—you sleeping like my small, cute **baby** girl. That peace, that safety... that feeling is the **Memory** I carry through this LDR. You make distance feel temporary. 🫂",
+			"gift2": "My **Wish** is that you never feel the need to change for anyone, especially not your beautiful **chubbiness**. You are perfect, adorable, and delicious just the way you are. May all your opportunities under that **sky** come true! ✨",
+			"gift3": "My **Promise** is simple: I will always be your **safe space**. Your **hug** will always be waiting. I promise to support your cooking adventures (and eat all the food!) and to always treat you like the precious little girl you are to me. I love you, baby. 💞",
+			"finale": "This is my **LDR hug**. I’m holding you tight now. Close your eyes, feel the warmth, and know that you are **safe** here. Happy Birthday to the most beautiful, kind, and chubby girl in my world. I love you always, my **Little Star**! 🎂💖"
+		};
+		
+		const songData = {
+			1: { url: config.dedicatedSong1Url, waveId: 'wave-1', buttonId: 'play-pause-btn-1', nextBtnId: 'next-btn-1' },
+			2: { url: config.dedicatedSong2Url, waveId: 'wave-2', buttonId: 'play-pause-btn-2', nextBtnId: 'next-btn-2' }
+		};
+
+		const intro = document.getElementById('intro');
+		const mainAudio = document.getElementById('mainAudio');
+		const heartsContainer = document.getElementById('hearts-container');
+		
+		// Centralized screen map for flow control
+		const allScreens = {
+			1: { el: document.getElementById('intro-msg-1'), textId: 'intro-text-1', msg: messages.msg1, audio: 'ambient' },
+			2: { el: document.getElementById('intro-msg-2'), textId: 'intro-text-2', msg: messages.msg2, audio: 'ambient' },
+			// Step 3: Now plays ambient
+			3: { el: document.getElementById('intro-msg-3'), textId: 'intro-text-3', msg: messages.msg3, audio: 'ambient' }, 
+			4: { el: document.getElementById('song-player-1'), songNum: 1, audio: 'player' }, 
+			5: { el: document.getElementById('intro-msg-4'), textId: 'intro-text-4', msg: messages.msg4, audio: 'ambient' }, 
+			6: { el: document.getElementById('song-player-2'), songNum: 2, audio: 'player' }, 
+			7: { el: document.getElementById('intro-transition'), textId: 'intro-text-transition', msg: messages.transition, audio: 'ambient' },
+			8: { el: document.getElementById('gift-screen'), audio: 'ambient' }
+		}
+
+		let currentStep = 0;
+		let giftsOpened = 0;
+		const totalGifts = 3;
+		
+		// Global state for ambient music tracking
+		let ambientTime = 0; // Stores the current time of the ambient track when paused
+		let isAmbientSource = true; // Tracks if mainAudio is currently set to the ambient URL
+		let activeSongNum = 0; // Tracks which dedicated song (1 or 2) is active.
+		
+		// --- Firebase/Canvas Boilerplate ---
+		let db, auth;
+		let userId = 'anonymous'; 
+		
+		function initializeFirebase() {
+			try {
+				const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+				const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+				const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+				
+				if (firebaseConfig) {
+					const { initializeApp } = firebase;
+					const { getAuth, signInAnonymously, signInWithCustomToken } = firebase.auth;
+					const { getFirestore } = firebase.firestore;
+					
+					const app = initializeApp(firebaseConfig);
+					db = getFirestore(app);
+					auth = getAuth(app);
+					
+					if (initialAuthToken) {
+						signInWithCustomToken(auth, initialAuthToken).then(userCredential => { userId = userCredential.user.uid; })
+						.catch(error => { signInAnonymously(auth).then(userCredential => { userId = userCredential.user.uid; }); });
+					} else {
+						signInAnonymously(auth).then(userCredential => { userId = userCredential.user.uid; });
+					}
+				}
+			} catch (e) { console.error("Firebase initialization failed:", e); }
+		}
+		
+		// --- Audio Control Core ---
+
+		function updatePlayerUI(songNum, playing) {
+			const { waveId, buttonId } = songData[songNum];
+			const btn = document.getElementById(buttonId);
+			const wave = document.getElementById(waveId);
+			if (btn && wave) {
+				// Updated button text for romantic/cute theme
+				btn.innerHTML = playing ? '⏸️ Hold the Moment' : '❤️ Hear My Heart';
+				wave.querySelectorAll('.bar').forEach(bar => {
+					playing ? bar.classList.remove('paused') : bar.classList.add('paused');
+				});
+			}
+		}
+		
+		// Plays music with an optional fade-in effect
+		function playMusic(url, volume, loop = false, fade = true) {
+			if (mainAudio.src.split('?')[0] !== url.split('?')[0]) {
+				mainAudio.src = url;
+				mainAudio.load();
+				isAmbientSource = (url === config.ambientMusicUrl);
+			}
+			mainAudio.loop = loop;
+			mainAudio.play().catch(e => console.log("Autoplay blocked/failed:", e));
+
+			if (!fade) {
+				mainAudio.volume = volume;
+				return;
+			}
+			
+			// Fade-in logic
+			let v = mainAudio.volume;
+			const targetVolume = volume;
+			const fadeInterval = setInterval(() => {
+				if (v < targetVolume) {
+					v += 0.02;
+					mainAudio.volume = Math.min(v, targetVolume);
+				} else {
+					mainAudio.volume = targetVolume;
+					clearInterval(fadeInterval);
+				}
+			}, 100);
+		}
+
+		// Pauses the current track (used for dedicated songs)
+		function pauseCurrentTrack() {
+			mainAudio.pause();
+			if (!isAmbientSource && activeSongNum > 0) {
+				updatePlayerUI(activeSongNum, false);
+			}
+		}
+
+		// Stops the current track (resets time)
+		function stopAllMusic() {
+			mainAudio.pause();
+			mainAudio.currentTime = 0;
+			if (!isAmbientSource && activeSongNum > 0) {
+				updatePlayerUI(activeSongNum, false);
+			}
+			activeSongNum = 0;
+		}
+
+		// Resumes Ambient Music from the saved position
+		function resumeAmbient() {
+			// 1. Ensure audio element is set to ambient source
+			if (mainAudio.src.split('?')[0] !== config.ambientMusicUrl.split('?')[0]) {
+				mainAudio.src = config.ambientMusicUrl;
+				mainAudio.load();
+				isAmbientSource = true;
+			}
+
+			// 2. Set time and volume
+			mainAudio.currentTime = ambientTime;
+			mainAudio.loop = true;
+
+			// 3. Play
+			playMusic(config.ambientMusicUrl, config.ambientVolume, true, false); // No fade on resume
+			
+			// 4. Clear saved state
+			ambientTime = 0;
+		}
+
+		// Pauses the ambient track and saves its position
+		function pauseAndSaveAmbient() {
+			if (isAmbientSource && !mainAudio.paused) {
+				ambientTime = mainAudio.currentTime;
+				mainAudio.pause();
+				return true; // Ambient was paused
+			}
+			return false;
+		}
+
+
+		// --- Dedicated Song Playback Control ---
+
+		function togglePlayPause(songNum) {
+			activeSongNum = songNum;
+			const songUrl = songData[songNum].url;
+
+			if (!isAmbientSource && !mainAudio.paused) {
+				// 1. Pausing the dedicated song
+				pauseCurrentTrack();
+			} else {
+				// 2. Playing the dedicated song: 
+				
+				// A. Pause ambient and save its position first
+				pauseAndSaveAmbient();
+
+				// B. Load and Play Dedicated Song
+				playMusic(songUrl, config.dedicatedVolume, true, true); 
+				updatePlayerUI(songNum, true);
+				
+				// C. Enable the next button after a short listen time
+				const nextBtn = document.getElementById(songData[songNum].nextBtnId);
+				setTimeout(() => {
+					nextBtn.disabled = false;
+					nextBtn.style.background = 'var(--hug-color)';
+				}, config.minListenTimeSeconds * 1000);
+			}
+		}
+
+		// --- Flow Control Functions ---
+
+		function hideCurrentScreen() {
+			document.querySelectorAll('.message-screen').forEach(m => {
+				if (m.style.display === 'flex') {
+					m.style.display = 'none';
+					m.querySelector('.message-text')?.classList.remove('breathing-text');
+				}
+			});
+		}
+		
+		// This function manages the progression between TEXT/MESSAGE screens
+		function advanceStep() {
+			hideCurrentScreen();
+
+			currentStep++;
+			console.log("Advancing to Step:", currentStep);
+			const nextScreen = allScreens[currentStep];
+
+			if (!nextScreen) return;
+			
+			nextScreen.el.style.display = 'flex';
+			
+			// 1. Audio Management
+			if (nextScreen.audio === 'ambient') {
+				// Steps 1, 2, 3, 5, 7, 8: Ensure Ambient Music is playing
+				if (mainAudio.paused || !isAmbientSource) {
+					// Only use a fade on first start (Step 1). Subsequent plays are resumes.
+					const doFade = currentStep === 1; 
+					playMusic(config.ambientMusicUrl, config.ambientVolume, true, doFade);
+				}
+			} else if (nextScreen.audio === 'player') {
+				// Steps 4, 6: Player Screen - prepare the dedicated song source
+				activeSongNum = nextScreen.songNum;
+				
+				// Ensure UI is paused state (using the new text)
+				mainAudio.pause();
+				updatePlayerUI(activeSongNum, false);
+				
+				// Load the dedicated source but don't play yet
+				mainAudio.src = songData[nextScreen.songNum].url;
+				mainAudio.load();
+				isAmbientSource = false;
+			}
+
+			// 2. Text Typing Management
+			if (nextScreen.textId) {
+				typeWriterEffect(nextScreen.textId, nextScreen.msg);
+			}
+		}
+
+		// Handles the 'Next Chapter/Transition' button on the dedicated player screens (Steps 4, 6)
+		function advanceFromPlayer(songNum) {
+			// 1. Stop the dedicated song and advance step
+			mainAudio.pause(); 
+			mainAudio.currentTime = 0; // Reset the dedicated track position
+			activeSongNum = 0;
+
+			hideCurrentScreen();
+			currentStep++; 
+			
+			console.log("Advancing from Player to Step:", currentStep);
+			const nextScreen = allScreens[currentStep];
+
+			if (!nextScreen) return;
+
+			nextScreen.el.style.display = 'flex';
+			
+			// 2. Resume Ambient Music from saved time
+			resumeAmbient();
+
+			// 3. Text Typing Management
+			if (nextScreen.textId) {
+				typeWriterEffect(nextScreen.textId, nextScreen.msg);
+			}
+		}
+
+
+		// --- Start Sequence ---
+
+		function startJourney() {
+			// Ensure this function only runs once
+			if (intro.classList.contains('started')) return;
+			intro.classList.add('started');
+
+			intro.style.animation = "fadeOut 2s ease forwards";
+			setInterval(createFloatingHeart, 700);
+			
+			// Start the sequence at Step 1 after the intro fades
+			setTimeout(() => {
+				currentStep = 0; 
+				advanceStep(); // Moves to step 1
+			}, 1000);
+		}
+
+		// Option 1: Start on user click (still available)
+		intro.addEventListener('click', startJourney, { once: true });
+		
+		// Option 2 (FIX): Start automatically after the title typing completes (around 4 seconds)
+		// This prevents it from getting stuck on the blue screen if the user doesn't click immediately.
+		setTimeout(() => {
+			if (!intro.classList.contains('started')) {
+				startJourney();
+			}
+		}, 4000); 
+
+		window.onload = initializeFirebase; 
+		
+
+		// --- Gift and Finale Logic ---
+		function openGift(giftNum) {
+			const giftElement = document.getElementById(`gift-${giftNum}`);
+			if (giftElement.classList.contains('opened')) return;
+
+			// Ambient music is already playing on the gift screen (Step 8)
+			giftElement.classList.add('opened', 'open');
+			giftsOpened++;
+			createHeartBurst(giftElement);
+
+			const messageId = `message-${giftNum}`;
+			const textId = `text-${giftNum}`;
+			
+			setTimeout(() => {
+				document.getElementById(messageId).style.display = "flex";
+				typeWriterEffect(textId, messages[`gift${giftNum}`]);
+			}, 800);
+		}
+
+		function closeMessage(giftNum) {
+			const messageElement = document.getElementById(`message-${giftNum}`);
+			messageElement.style.display = 'none';
+			messageElement.querySelector('.message-text').classList.remove('breathing-text');
+			
+			if (giftsOpened === totalGifts) {
+				showFinale();
+			}
+		}
+		
+		function showFinale() {
+			// Ambient music should continue playing here.
+			document.getElementById('gift-screen').style.animation = "fadeOut 1s ease forwards";
+			
+			const finaleScreen = document.getElementById('finale-screen');
+			finaleScreen.style.display = "flex";
+			finaleScreen.style.opacity = "1";
+
+			// Ensure ambient is playing (it should be, but a safety check)
+			if (mainAudio.paused && isAmbientSource) {
+				playMusic(config.ambientMusicUrl, config.ambientVolume, true, false);
+			}
+
+			typeWriterEffect('text-finale', messages.finale);
+			createHeartBurst(finaleScreen, 50);
+		}
+
+		// --- Effects (Typewriter, Hearts) ---
+		function typeWriterEffect(elementId, text) {
+			const textElement = document.getElementById(elementId);
+			textElement.innerHTML = "";
+			textElement.classList.remove('breathing-text');	
+			let i = 0;
+			const speed = 50;
+			
+			const interval = setInterval(() => {
+				if (i < text.length) {
+					let char = text.charAt(i);
+					if (text.substring(i, i + 2) === '**') {
+						let end = text.indexOf('**', i + 2);
+						if (end !== -1) {
+							textElement.innerHTML += '<strong>' + text.substring(i + 2, end) + '</strong>';
+							i = end + 2;
+						} else {
+							textElement.innerHTML += char;
+							i++;
+						}
+					} else if (char === '\n') {
+						textElement.innerHTML += '<br>';
+						i++;
+					} else {
+						textElement.innerHTML += char;
+						i++;
+					}
+				} else {
+					clearInterval(interval);
+					textElement.classList.add('breathing-text');	
+				}
+			}, speed);
+		}
+
+		function createFloatingHeart() {
+			const heart = document.createElement('div');
+			heart.classList.add('heart');
+			heart.innerHTML = ['💙','💖','✨','💘'][Math.floor(Math.random() * 4)];
+			heart.style.left = Math.random() * 100 + 'vw';
+			heart.style.fontSize = 15 + Math.random() * 25 + 'px';
+			heart.style.animationDuration = 6 + Math.random() * 4 + 's';
+			heartsContainer.appendChild(heart);
+			setTimeout(() => heart.remove(), 10000);
+		}
+		
+		function createHeartBurst(element, count = 20) {
+			const rect = element.getBoundingClientRect();
+			const startX = rect.left + rect.width / 2;
+			const startY = rect.top + rect.height / 2;
+			
+			for (let i = 0; i < count; i++) {
+				const heart = document.createElement('div');
+				heart.classList.add('heart-burst');
+				heart.innerHTML = ['💖', '💞', '💙'][i % 3];
+				heart.style.left = startX + 'px';
+				heart.style.top = startY + 'px';
+				
+				const randX = (Math.random() - 0.5) * 300;
+				const randY = (Math.random() - 0.5) * 300;
+				
+				heart.style.setProperty('--x', `${randX}px`);
+				heart.style.setProperty('--y', `${randY}px`);
+				
+				document.body.appendChild(heart);
+				setTimeout(() => heart.remove(), 1000);
+			}
+		}
+	</script>
+</body>
+</html>
