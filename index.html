@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Happy Birthday My Leady 💙</title>
@@ -116,14 +115,25 @@
 			font-family: 'Dancing Script', cursive;
 			color: var(--hug-color);
 		}
-
+		
+		/* --- ADJUSTMENTS FOR LARGER MESSAGE WINDOW --- */
 		.message-text {
-			font-size: 1.4em;
-			max-width: 650px;
-			line-height: 1.7em;
+			font-size: 1.25em;
+			/* INCREASED MAX-WIDTH to utilize more horizontal page space */
+			max-width: 1200px; 
+			width: 90%; /* Fluid width for responsiveness on smaller screens */
+			line-height: 1.6em;
 			white-space: pre-wrap;
 			min-height: 100px;
 			font-family: 'Poppins', sans-serif;
+			
+			/* Crucial for vertical scrolling and responsive height */
+			max-height: 70vh; /* Limits height to 70% of viewport */
+			overflow-y: auto; /* Adds scrollbar if content exceeds max-height */
+			padding: 15px;
+			margin-bottom: 20px;
+			border-radius: 10px;
+			background: rgba(0, 0, 0, 0.1);
 		}
 		
 		.message-text.breathing-text {
@@ -136,7 +146,7 @@
 		}
 
 		button.next-btn {
-			margin-top: 40px;
+			margin-top: 20px; /* Reduced margin to save vertical space */
 			background: var(--hug-color);
 			border: none;
 			color: var(--dark-blue);
@@ -211,7 +221,7 @@
 			100% { height: 100%; }
 		}
 		
-		/* --- GIFT BOX STYLES (EXACT MATCH TO PROVIDED IMAGE) --- */
+		/* --- GIFT BOX STYLES --- */
 
 		/* Pulsing animation */
 		@keyframes heartPulse {
@@ -527,7 +537,7 @@
 	
 	<div id="song-player-1" class="message-screen">
 		<h2>Song For Devine Beauty 🚶‍♀️</h2>
-		<div class="message-text">this song is dedicated your devine level beauty my Gabbu...</div>
+		<div class="message-text">this song is dedicated your devine level beauty my Gabbu....</div>
 		
 		<div class="sound-wave" id="wave-1">
 			<div class="bar paused"></div>
@@ -539,7 +549,7 @@
 		<div class="player-container">
 			<button onclick="stopAllMusic()" title="Stop All Music">❌ Stop the Melody</button>
 			<button id="play-pause-btn-1" onclick="togglePlayPause(1)">❤️ Hear My Heart</button>
-			<button class="next-song-btn" id="next-btn-1" onclick="advanceFromPlayer(1)" disabled>✨ Next Tribute to my Beauty</button>
+			<button class="next-song-btn" id="next-btn-1" onclick="advanceFromPlayer(1)" disabled>✨ Next Dream</button>
 		</div>
 	</div>
 	
@@ -640,7 +650,13 @@
 	<audio id="mainAudio"></audio>
 	<div id="hearts-container"></div>
 
-	<script>
+	<script type="module">
+		// Firebase and Canvas environment imports (required)
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+		import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+		import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
 		// --- CONFIGURATION (CHECK YOUR URLs HERE!) ---
 		const config = {
 			ambientVolume: 0.3,
@@ -652,6 +668,7 @@
 			minListenTimeSeconds: 5
 		};
 		
+		// --- FINALIZED MESSAGES (All lines fixed and content updated) ---
 		const messages = {
 			"msg1": "Welcome, Pilyaaa, to a space crafted not with just code, but with the boundless admiration And Love I hold for you.This journey begins on a canvas bathed in Sky Blue 💙 your favorite color i know, and its tribute to you Now you are asking का Tribute कशासाठी because . Just as you are a 'Blue Sky Thinker,' this endless blue reminds you that the universe is wide open for your grand aspirations and the big goals and your Dreams like MS,Buisness you will conquer this i know you.As you read, notice how the text seems to glow and shimmer, like distant stars✨.That's you, my Little Star (Mann Ki baat -> जसे हे  words Glow करतायत same तशी तु   Glow kartes and अशीच glow kart रहाशिल in your carrier and life ever and forever like a  glowing  star). Every element here is designed to be a reminder You shine like this, always.Take a deep breath. The gentle, soft melody beneath these words is the sound of my heart, reminding you that तु लम्बे रेस का घोडा sorry घोडी है 🐎,तो मेरी धननौ अभी चलनेका समय गया ऊडनेका समय आ चुका है.... Like a Unicorn Every step will go towards your a Dreams.. SO be Ready.This journey is for you, my self-motivated, beautiful Lady.",
 			"msg2": "You are truly the sweetest girl, my little baby.I know, I know—you always complain that I save the best compliments( Hmmm तु माझी तारिफ़ कधी करतच नाहीस...😡 बाकीच्या पोरीनची बरी करतोस.... तुज्या पेक्षा माजा जान बरा...), but I've been intentionally holding back for this special day. Why? Because you deserve a moment as beautiful as your heart.Your infectious, joyful laugh at your own perfectly lame jokes makes my entire day every time(लई भारी दिसतस...तशी हसतेस तवा...😘),. And your Beauty on Peak, especially when you wear a saree with gajara or kurti... well i am like...... संपलोय रे मी...... संपलोय😎🥰, that gives my heart butterflies 🦋! You look so incredibly cute and sweet beautifull in them(Mann ki Baat -> पिवळ्या रंगाची kurtee घालतेस ना..... दिवाळीचा कंदील दिसतेस.... सुंदर आणि bright),and i can watch you all day( Mann ki Baat -> Naruto सोडून दिवसभर तुला बगत बसेन एवढी..... सुंदर दिसतेस).For me, you are pure, simple, the most beautiful thing in the world, and so very precious to me. I saved this moment because I'm dedicating a song only for you, right now. It's the perfect soundtrack for all those feelings I hold inside. Never change a single thing about yourself my Baby🎶(Mann ki Baat -> संपलोय रे मी........ संपलोय😎🥰). (हासु नको आता... जमणार हाय का तुज़्या जान ला हे सगळा.. फाल्तू माणुस... AN RD an Emrru Tuza te pn फाल्तू) Hmmm zala kar next aata.... ",
@@ -663,6 +680,8 @@
 			"gift3": "My **Promise** is simple: I will always be your **safe space**. Your **hug** will always be waiting. I promise to support your cooking,your dreams your good decision and taking responsibilities of your bad decisions to always why because i am your mumma(mumma kade jaychay ... mg jaa.. tya nay hyaa..😂😂) i teach you every thing again and again until tuzya dokyat basat nay...(mann ki baat-> teach kam hay maza) when you need and requried i stand behind you with you always with your adventures (and eat all the food!) and to always treat you like the precious little girl you are to me. I love you, baby. 💞",
 			"finale": "This is my **hug(Your safest place)**. I’m holding you tight now. Close your eyes, feel the warmth, and know that you are **safe** here. Happy Birthday to the most beautiful, kind, and chubby girl in my world. I love you always, my **Little Star**! 🎂💖"
 		};
+
+		// --- END FINALIZED MESSAGES ---
 		
 		const songData = {
 			1: { url: config.dedicatedSong1Url, waveId: 'wave-1', buttonId: 'play-pause-btn-1', nextBtnId: 'next-btn-1' },
@@ -687,36 +706,32 @@
 
 		let currentStep = 0;
 		let giftsOpened = 0;
-		const totalGifts = 3;
+		const totalGifts = 3; 
 		
 		// Global state for ambient music tracking
 		let ambientTime = 0;
 		let isAmbientSource = true;
 		let activeSongNum = 0;
 		
-		// --- Firebase/Canvas Boilerplate (omitted for brevity) ---
+		// --- Firebase/Canvas Boilerplate ---
 		let db, auth;
 		let userId = 'anonymous';
-		function initializeFirebase() {
+		async function initializeFirebase() {
 			try {
 				const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 				const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
 				const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 				
 				if (firebaseConfig) {
-					const { initializeApp } = firebase;
-					const { getAuth, signInAnonymously, signInWithCustomToken } = firebase.auth;
-					const { getFirestore } = firebase.firestore;
-					
 					const app = initializeApp(firebaseConfig);
-					db = getFirestore(app);
 					auth = getAuth(app);
+					db = getFirestore(app);
 					
 					if (initialAuthToken) {
-						signInWithCustomToken(auth, initialAuthToken).then(userCredential => { userId = userCredential.user.uid; })
+						await signInWithCustomToken(auth, initialAuthToken).then(userCredential => { userId = userCredential.user.uid; })
 						.catch(error => { signInAnonymously(auth).then(userCredential => { userId = userCredential.user.uid; }); });
 					} else {
-						signInAnonymously(auth).then(userCredential => { userId = userCredential.user.uid; });
+						await signInAnonymously(auth).then(userCredential => { userId = userCredential.user.uid; });
 					}
 				}
 			} catch (e) { console.error("Firebase initialization failed:", e); }
@@ -891,8 +906,7 @@
 
 		intro.addEventListener('click', startJourney, { once: true });
 		
-		// *** THIS IS THE FIX ***
-		// The stray 's' is removed.
+
 		window.onload = initializeFirebase;
 		
 		// --- Gift and Finale Logic ---
@@ -904,7 +918,6 @@
 			giftsOpened++;
 			
 			// Trigger the dramatic heart burst confetti
-			// The JS function already uses the correct heart palette
 			createHeartBurst(giftElement);
 
 			const messageId = `message-${giftNum}`;
@@ -989,8 +1002,8 @@
 		function createHeartBurst(element, count = 30) {
 			const rect = element.getBoundingClientRect();
 			const startX = rect.left + rect.width / 2;
-			// Make burst appear from *inside* the box, not the center of the gift
-			const startY = rect.top + rect.height / 2 + 30;
+			// Use the center of the element for burst, adjusting vertically for the gift box lid
+			const startY = rect.top + rect.height / 2 + (element.id.includes('gift') ? 30 : 0);
 			
 			// This palette perfectly matches the image burst
 			const palette = ['💖', '✨', '💞', '❤️', '🫂', '💙', '👑'];
@@ -1015,9 +1028,15 @@
 				setTimeout(() => burstEl.remove(), 800);
 			}
 		}
+        
+        // --- FIX: Expose functions to the global scope for inline onclick handlers ---
+        window.advanceStep = advanceStep;
+        window.stopAllMusic = stopAllMusic;
+        window.togglePlayPause = togglePlayPause;
+        window.advanceFromPlayer = advanceFromPlayer;
+        window.openGift = openGift;
+        window.closeMessage = closeMessage;
 
 	</script>
 </body>
 </html>
-
-
